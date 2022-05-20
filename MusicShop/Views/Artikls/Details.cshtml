@@ -1,13 +1,13 @@
 ﻿@model MusicShop.Models.Artikl
 
 @{
-    ViewData["Title"] = "Details";
+    ViewData["Title"] = "Detalji";
 }
 
-<h1>Details</h1>
+
 
 <div>
-    <h4>Artikl</h4>
+    <h4>Detalji o artiklu @Html.DisplayName(Model.Ime) </h4>
     <hr />
     <dl class="row">
         <dt class = "col-sm-2">
@@ -29,14 +29,14 @@
             @Html.DisplayFor(model => model.Cijena)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.SifVrsteNavigation)
+            @Html.DisplayName("Vrsta artikla")
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.SifVrsteNavigation.SifVrste)
+            @Html.DisplayFor(model => model.SifVrsteNavigation.ImeVrste)
         </dd>
     </dl>
 </div>
 <div>
-    <a asp-action="Edit" asp-route-id="@Model.SifArtikla">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Edit" asp-route-id="@Model.SifArtikla">Uredi</a> |
+    <a asp-action="Index">Vrati se na popis svih artikala</a>
 </div>

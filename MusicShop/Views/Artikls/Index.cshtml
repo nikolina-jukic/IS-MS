@@ -13,7 +13,7 @@
     @using (Html.BeginForm())
     {
     <p>
-    Title: @Html.TextBox("searchStr") <br />
+    Ime artikla: @Html.TextBox("searchStr") <br /><br />
     <input type="submit" value="Traži" />
     </p>
     }
@@ -46,9 +46,9 @@
     </td>
 
     <td>
-        <a asp-action="Edit" asp-route-id="@item.SifArtikla">Edit</a> |
-        <a asp-action="Details" asp-route-id="@item.SifArtikla">Details</a> |
-        <a asp-action="Delete" asp-route-id="@item.SifArtikla">Delete</a>
+        <a asp-action="Edit" asp-route-id="@item.SifArtikla">Uredi</a> |
+        <a asp-action="Details" asp-route-id="@item.SifArtikla">Detalji</a> |
+        <a asp-action="Delete" asp-route-id="@item.SifArtikla">Obriši</a>
     </td>
 </tr>
 }

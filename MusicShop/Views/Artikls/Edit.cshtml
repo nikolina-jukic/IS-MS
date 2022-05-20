@@ -4,9 +4,8 @@
     ViewData["Title"] = "Edit";
 }
 
-<h1>Edit</h1>
 
-<h4>Artikl</h4>
+<h4>Uredi podatke:</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -19,7 +18,7 @@
                 <span asp-validation-for="Ime" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="SifVrste" class="control-label"></label>
+                <label asp-for="SifVrste" class="control-label">Vrsta artikla</label>
                 <select asp-for="SifVrste" class="form-control" asp-items="ViewBag.SifVrste"></select>
                 <span asp-validation-for="SifVrste" class="text-danger"></span>
             </div>
@@ -34,14 +33,14 @@
                 <span asp-validation-for="Cijena" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
+                <input type="submit" value="Spremi" class="btn btn-primary" />
             </div>
         </form>
     </div>
 </div>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Index">Vrati se na popis svih artikala</a>
 </div>
 
 @section Scripts {

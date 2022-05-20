@@ -53,7 +53,7 @@ namespace MusicShop.Controllers
         // GET: Artikls/Create
         public IActionResult Create()
         {
-            ViewData["SifVrste"] = new SelectList(_context.VrstaArtiklas, "SifVrste", "SifVrste");
+            ViewData["SifVrste"] = new SelectList(_context.VrstaArtiklas, "SifVrste", "ImeVrste");
             return View();
         }
 
@@ -70,7 +70,7 @@ namespace MusicShop.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["SifVrste"] = new SelectList(_context.VrstaArtiklas, "SifVrste", "SifVrste", artikl.SifVrsteNavigation.ImeVrste);
+            ViewData["SifVrste"] = new SelectList(_context.VrstaArtiklas, "SifVrste", "SifVrste", artikl.SifVrste);
             return View(artikl);
         }
 
@@ -87,7 +87,7 @@ namespace MusicShop.Controllers
             {
                 return NotFound();
             }
-            ViewData["SifVrste"] = new SelectList(_context.VrstaArtiklas, "SifVrste", "SifVrste", artikl.SifVrste);
+            ViewData["SifVrste"] = new SelectList(_context.VrstaArtiklas, "SifVrste", "ImeVrste", artikl.SifVrste);
             return View(artikl);
         }
 
@@ -121,7 +121,7 @@ namespace MusicShop.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(Details), new { id = id});
             }
             ViewData["SifVrste"] = new SelectList(_context.VrstaArtiklas, "SifVrste", "SifVrste", artikl.SifVrste);
             return View(artikl);
