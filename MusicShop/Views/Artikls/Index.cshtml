@@ -1,53 +1,56 @@
 ﻿@model IEnumerable<MusicShop.Models.Artikl>
 
-@{
-    ViewData["Title"] = "Index";
-}
+@{ ViewData["Title"] = "Index"; }
 
-<h1>Index</h1>
+<h1>Popis artikala</h1>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <a asp-action="Create">Dodaj novi artikl</a>
+
 </p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Ime)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Godina)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Cijena)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.SifVrsteNavigation)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Ime)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Godina)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Cijena)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.SifVrsteNavigation.SifVrste)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.SifArtikla">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.SifArtikla">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.SifArtikla">Delete</a>
-            </td>
-        </tr>
+
+
+    @using (Html.BeginForm())
+    {
+    <p>
+    Title: @Html.TextBox("searchStr") <br />
+    <input type="submit" value="Traži" />
+    </p>
+    }
+    
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Ime)
+                </th>
+
+                <th>
+                    @Html.DisplayNameFor(model => model.Cijena)
+                </th>
+
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+<tr>
+    <td>
+        @Html.DisplayFor(modelItem => item.Ime)
+    </td>
+
+    <td>
+        @Html.DisplayFor(modelItem => item.Cijena)
+    </td>
+
+    <td>
+        <a asp-action="Edit" asp-route-id="@item.SifArtikla">Edit</a> |
+        <a asp-action="Details" asp-route-id="@item.SifArtikla">Details</a> |
+        <a asp-action="Delete" asp-route-id="@item.SifArtikla">Delete</a>
+    </td>
+</tr>
 }
-    </tbody>
-</table>
+        </tbody>
+    </table>

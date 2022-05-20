@@ -4,16 +4,16 @@
     ViewData["Title"] = "Create";
 }
 
-<h1>Create</h1>
+<h1>Unesi podatke o artiklu:</h1>
 
-<h4>Artikl</h4>
+
 <hr />
 <div class="row">
     <div class="col-md-4">
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="SifArtikla" class="control-label"></label>
+                <label asp-for="SifArtikla" class="control-label">Šifra artikla</label>
                 <input asp-for="SifArtikla" class="form-control" />
                 <span asp-validation-for="SifArtikla" class="text-danger"></span>
             </div>
@@ -23,7 +23,7 @@
                 <span asp-validation-for="Ime" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="SifVrste" class="control-label"></label>
+                <label asp-for="SifVrste" class="control-label">Vrsta artikla</label>
                 <select asp-for="SifVrste" class ="form-control" asp-items="ViewBag.SifVrste"></select>
             </div>
             <div class="form-group">
@@ -44,7 +44,7 @@
 </div>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Index">Vrati se na popis svih artikala</a>
 </div>
 
 @section Scripts {

@@ -19,10 +19,16 @@ namespace MusicShop.Controllers
         }
 
         // GET: Artikls
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string searchStr)
         {
-            var mSContext = _context.Artikls.Include(a => a.SifVrsteNavigation);
-            return View(await mSContext.ToListAsync());
+            var artikli = from a in _context.Artikls select a;
+
+            if (!String.IsNullOrEmpty(searchStr))
+            {
+                artikli = artikli.Where(s => s.Ime.Contains(searchStr));
+            }
+
+            return View(await artikli.ToListAsync());
         }
 
         // GET: Artikls/Details/5
@@ -64,7 +70,7 @@ namespace MusicShop.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["SifVrste"] = new SelectList(_context.VrstaArtiklas, "SifVrste", "SifVrste", artikl.SifVrste);
+            ViewData["SifVrste"] = new SelectList(_context.VrstaArtiklas, "SifVrste", "SifVrste", artikl.SifVrsteNavigation.ImeVrste);
             return View(artikl);
         }
 
