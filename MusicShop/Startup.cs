@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using MusicShop.Models;
+using MusicShopData;
 using System;
 using System.Collections.Generic;
 using System.Linq;

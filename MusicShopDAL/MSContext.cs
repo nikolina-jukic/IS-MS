@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Metadata;
 
 #nullable disable
 
-namespace MusicShop.Models
+namespace MusicShopData
 {
     public partial class MSContext : DbContext
     {

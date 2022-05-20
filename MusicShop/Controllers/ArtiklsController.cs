@@ -5,7 +5,8 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using MusicShop.Models;
+using MusicShopData;
+using MusicShopBLL;
 
 namespace MusicShop.Controllers
 {
@@ -48,6 +49,34 @@ namespace MusicShop.Controllers
             }
 
             return View(artikl);
+        }
+
+        public async Task<IActionResult> AddToCart(int? id)
+        {
+            if (id == null)
+            {
+                System.Diagnostics.Debug.WriteLine("Not found!");
+                return NotFound();
+            }
+            var artikl = await _context.Artikls.FindAsync(id);
+            if (artikl == null)
+            {
+                System.Diagnostics.Debug.WriteLine("Not found!");
+                return NotFound();
+            }
+
+            Korisnik korisnik = _context.Korisniks.First();
+
+            if(await Cart.AddItemToCart(artikl, korisnik, _context)){
+                System.Diagnostics.Debug.WriteLine("Success!");
+			}
+			else
+			{
+                System.Diagnostics.Debug.WriteLine("Failure!");
+            }
+
+            return RedirectToAction("Index");
+
         }
 
         // GET: Artikls/Create

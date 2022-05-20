@@ -1,4 +1,4 @@
-﻿@model IEnumerable<MusicShop.Models.Artikl>
+﻿@model IEnumerable<MusicShopData.Artikl>
 
 @{ ViewData["Title"] = "Index"; }
 
@@ -46,6 +46,7 @@
     </td>
 
     <td>
+        <a asp-action="AddToCart" asp-route-id="@item.SifArtikla">Dodaj u košaricu</a> |
         <a asp-action="Edit" asp-route-id="@item.SifArtikla">Uredi</a> |
         <a asp-action="Details" asp-route-id="@item.SifArtikla">Detalji</a> |
         <a asp-action="Delete" asp-route-id="@item.SifArtikla">Obriši</a>

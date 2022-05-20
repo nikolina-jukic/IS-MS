@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 #nullable disable
 
-namespace MusicShop.Models
+namespace MusicShopData
 {
     public partial class ArtiklZanr
     {
