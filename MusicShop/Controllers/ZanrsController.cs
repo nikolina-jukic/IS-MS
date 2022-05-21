@@ -19,9 +19,16 @@ namespace MusicShop.Controllers
         }
 
         // GET: Zanrs
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string searchStr)
         {
-            return View(await _context.Zanrs.ToListAsync());
+            var zanrs = from a in _context.Zanrs select a;
+
+            if (!String.IsNullOrEmpty(searchStr))
+            {
+                zanrs = zanrs.Where(s => s.Ime.Contains(searchStr));
+            }
+
+            return View(await zanrs.ToListAsync());
         }
 
         // GET: Zanrs/Details/5

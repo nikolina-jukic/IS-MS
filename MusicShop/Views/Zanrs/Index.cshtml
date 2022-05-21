@@ -1,14 +1,18 @@
 ﻿@model IEnumerable<MusicShopData.Zanr>
 
-@{
-    ViewData["Title"] = "Index";
-}
+@{ ViewData["Title"] = "Index"; }
 
 <h1>Popis žanrova</h1>
 
 <p>
     <a asp-action="Create">Dodaj novi žanr</a>
 </p>
+@using (Html.BeginForm())
+{
+<p>
+    Ime žanra: @Html.TextBox("searchStr") <br /><br />
+    <input type="submit" value="Traži" />
+</p>}
 <table class="table">
     <thead>
         <tr>
@@ -19,17 +23,17 @@
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Ime)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.SifZanra">Uredi</a> |
-                <a asp-action="Details" asp-route-id="@item.SifZanra">Detalji</a> |
-                <a asp-action="Delete" asp-route-id="@item.SifZanra">Obriši</a>
-            </td>
-        </tr>
-}
+        @foreach (var item in Model)
+        {
+<tr>
+    <td>
+        @Html.DisplayFor(modelItem => item.Ime)
+    </td>
+    <td style="text-align:right">
+        <a asp-action="Edit" asp-route-id="@item.SifZanra">Uredi</a> |
+        <a asp-action="Details" asp-route-id="@item.SifZanra">Detalji</a> |
+        <a asp-action="Delete" asp-route-id="@item.SifZanra">Obriši</a>
+    </td>
+</tr>}
     </tbody>
 </table>
