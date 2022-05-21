@@ -19,7 +19,7 @@ namespace MusicShopBLL
 				ArtiklNarudzba artNar;
 				Narudzba narudzba;
 
-				var artNars = context.ArtiklNarudzbas.Where(a => a.SifArtikla == artikl.SifArtikla).Include(a => a.SifNarudzbeNavigation);
+				var artNars = context.ArtiklNarudzbas.Where(a => a.SifArtikla == artikl.SifArtikla && a.SifNarudzbeNavigation.Username == korisnik.Username).Include(a => a.SifNarudzbeNavigation);
 
 				if (artNars.Any())
 				{
