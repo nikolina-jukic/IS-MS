@@ -12,6 +12,7 @@ namespace MusicShop.Controllers
 {
     public class CartController : Controller
     {
+        private const string SessionKeyCart = "_Cart";
         private readonly MSContext _context;
 
         public CartController(MSContext context)
@@ -20,32 +21,45 @@ namespace MusicShop.Controllers
         }
 
         // GET: Cart
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(int id = -1)
         {
-            List<NarudzbaViewModel> narudzbe = new List<NarudzbaViewModel>();
-            var korisnik = _context.Korisniks.First();
-            var artNars = _context.ArtiklNarudzbas.Where(n => n.SifNarudzbeNavigation.Username == korisnik.Username).Include(n => n.SifArtiklaNavigation).Include(n => n.SifNarudzbeNavigation);
-            foreach(var artNar in artNars)
-			{
-                NarudzbaViewModel narudzbaViewModel = new NarudzbaViewModel(
-                    artNar.SifArtNar,
-                    artNar.Kolicina,
-                    artNar.SifNarudzbeNavigation.Datum,
-                    artNar.SifArtiklaNavigation.Ime,
-                    artNar.SifArtiklaNavigation.Cijena,
-                    artNar.SifArtiklaNavigation);
-                narudzbe.Add(narudzbaViewModel);
-			}
+            List<NarudzbaViewModel> narudzbe;
+            if (id == -1)
+            {
+                narudzbe = new List<NarudzbaViewModel>();
+                var korisnik = _context.Korisniks.First();
+                var artNars = _context.ArtiklNarudzbas.Where(n => n.SifNarudzbeNavigation.Username == korisnik.Username).Include(n => n.SifArtiklaNavigation).Include(n => n.SifNarudzbeNavigation);
+                foreach (var artNar in artNars)
+                {
+                    NarudzbaViewModel narudzbaViewModel = new NarudzbaViewModel(
+                        artNar.SifArtNar,
+                        artNar.Kolicina,
+                        artNar.SifNarudzbeNavigation.Datum,
+                        artNar.SifArtiklaNavigation.Ime,
+                        artNar.SifArtiklaNavigation.Cijena);
+                    narudzbe.Add(narudzbaViewModel);
+                }
+                HttpContext.Session.Set(SessionKeyCart, narudzbe);
+            }
+			else
+            {
+                narudzbe = HttpContext.Session.Get<List<NarudzbaViewModel>>(SessionKeyCart);
+                var artNar = narudzbe.Find(n => n.sifNar == id);
+                artNar.Detail = true;
+                int? artiklId = _context.ArtiklNarudzbas.Find(id).SifArtikla;
+                Artikl artikl = _context.Artikls.Where(a => a.SifArtikla == artiklId).Include(a => a.SifVrsteNavigation).First();
+                artNar.Artikl = artikl;
+            }
 
             return View(narudzbe);
         }
 
         // GET: Cart/Details/5
-        public async Task<IActionResult> Details(int? id)
+        public async Task Details(int? id)
         {
             if (id == null)
             {
-                return NotFound();
+                return;
             }
 
             var narudzba = await _context.Narudzbas
@@ -53,10 +67,10 @@ namespace MusicShop.Controllers
                 .FirstOrDefaultAsync(m => m.SifNarudzbe == id);
             if (narudzba == null)
             {
-                return NotFound();
+                return;
             }
-
-            return View(narudzba);
+            Response.Redirect("/Cart/Index/" + id.ToString());
+            return;
         }
 
         // POST: Cart/Delete/5

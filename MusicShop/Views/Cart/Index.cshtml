@@ -7,6 +7,7 @@
 <h1>Index</h1>
 
 @{double? ukupno = 0;}
+@{int detail = -1; }
 
 <table class="table">
 	<thead>
@@ -37,17 +38,64 @@
 					@Html.DisplayFor(modelItem => item.Cijena)
 				</td>
 				<td>
+					<a asp-action="Details" asp-route-id="@item.sifNar">Detalji</a> |
 					<a asp-action="Remove" asp-route-id="@item.sifNar">Ukloni</a>
 				</td>
 			</tr>
 			{ ukupno += item.Cijena; }
+			@if (item.Detail)
+			{
+				{ detail = item.sifNar; }
+			}
 		}
 	</tbody>
 </table>
 @if (Model.Count() > 0)
 {
-<p>
-	Ukupno: @ukupno
-	<a asp-action="Order">Naruči</a>
-</p>
+	<p>
+		Ukupno: @ukupno
+		<a asp-action="Order">Naruči</a>
+	</p>
+}
+<br />
+@if (detail > -1)
+{
+	<table class="table">
+		<thead>
+			<tr>
+				<th>
+					@Html.DisplayNameFor(model => model.Artikl.Ime)
+				</th>
+				<th>
+					@Html.DisplayNameFor(model => model.Artikl.Godina)
+				</th>
+				<th>
+					Vrsta artikla
+				</th>
+				<th>
+					@Html.DisplayNameFor(model => model.Artikl.Cijena)
+				</th>
+				<th></th>
+			</tr>
+		</thead>
+		<tbody>
+			@foreach (var item in Model)
+			{
+				<tr>
+					<td>
+						@Html.DisplayFor(modelItem => item.Artikl.Ime)
+					</td>
+					<td>
+						@Html.DisplayFor(modelItem => item.Artikl.Godina)
+					</td>
+					<td>
+						@Html.DisplayFor(modelItem => item.Artikl.SifVrsteNavigation.ImeVrste)
+					</td>
+					<td>
+						@Html.DisplayFor(modelItem => item.Artikl.Cijena)
+					</td>
+				</tr>
+			}
+		</tbody>
+	</table>
 }

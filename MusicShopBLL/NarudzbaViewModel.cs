@@ -11,14 +11,13 @@ namespace MusicShopBLL
 	{
 		private double? _cijena;
 
-		public NarudzbaViewModel(int sifNar, int? kolicina, DateTime? datum, string? ime, double? cijena, Artikl artikl)
+		public NarudzbaViewModel(int sifNar, int? kolicina, DateTime? datum, string? ime, double? cijena)
 		{
 			this.sifNar = sifNar;
 			this.Kolicina = kolicina;
 			this.Datum = datum;
 			this.Ime = ime;
 			this.Cijena = cijena;
-			this.Artikl = artikl;
 		}
 
 		public int sifNar { get; private set; }
@@ -33,6 +32,8 @@ namespace MusicShopBLL
 			private set => _cijena = value;
 		}
 
-		public Artikl Artikl { get; private set; }
+		public bool Detail { get; set; } = false;
+
+		public Artikl Artikl { get; set; } = null;
 	}
 }
