@@ -95,6 +95,7 @@ namespace MusicShop.Controllers
         {
             if (ModelState.IsValid)
             {
+                artikl.SifArtikla = NewId();
                 _context.Add(artikl);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
@@ -189,6 +190,16 @@ namespace MusicShop.Controllers
         private bool ArtiklExists(int id)
         {
             return _context.Artikls.Any(e => e.SifArtikla == id);
+        }
+
+        private int NewId()
+        {
+            var maxId = _context.Artikls
+                      .Select(o => o.SifArtikla)
+                      .ToList()
+                      .Max();
+
+            return maxId + 1;
         }
     }
 }

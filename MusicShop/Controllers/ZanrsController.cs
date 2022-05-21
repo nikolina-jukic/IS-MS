@@ -64,9 +64,18 @@ namespace MusicShop.Controllers
         {
             if (ModelState.IsValid)
             {
-                _context.Add(zanr);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                try
+                {
+                    zanr.SifZanra = NewId();
+                    _context.Add(zanr);
+                    await _context.SaveChangesAsync();
+                    return RedirectToAction(nameof(Index));
+                }
+                catch (Exception)
+                {
+
+                    throw;
+                }
             }
             return View(zanr);
         }
@@ -154,6 +163,15 @@ namespace MusicShop.Controllers
         private bool ZanrExists(int id)
         {
             return _context.Zanrs.Any(e => e.SifZanra == id);
+        }
+        private int NewId()
+        {
+            var maxId = _context.Zanrs
+                      .Select(o => o.SifZanra)
+                      .ToList()
+                      .Max();
+
+            return maxId + 1;
         }
     }
 }
