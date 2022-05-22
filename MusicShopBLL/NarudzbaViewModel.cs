@@ -9,7 +9,6 @@ namespace MusicShopBLL
 {
 	public class NarudzbaViewModel
 	{
-		private double? _cijena;
 
 		public NarudzbaViewModel(int sifNar, int? kolicina, DateTime? datum, string? ime, double? cijena)
 		{
@@ -28,12 +27,15 @@ namespace MusicShopBLL
 
 		public string? Ime { get; private set; }
 
-		public double? Cijena { get => _cijena * Kolicina;
-			private set => _cijena = value;
-		}
+		public double? Cijena { get; private set; }
 
 		public bool Detail { get; set; } = false;
 
 		public Artikl Artikl { get; set; } = null;
+
+		public double? Ukupno
+		{
+			get => Cijena * Kolicina;
+		}
 	}
 }

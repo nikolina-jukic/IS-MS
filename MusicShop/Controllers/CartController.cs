@@ -74,11 +74,11 @@ namespace MusicShop.Controllers
         }
 
         // POST: Cart/Delete/5
-        public async Task<IActionResult> Remove(int? id)
+        public async Task Remove(int? id)
         {
             if (id == null)
             {
-                return NotFound();
+                return;
             }
 
             var artNar = await _context.ArtiklNarudzbas
@@ -87,12 +87,13 @@ namespace MusicShop.Controllers
                 .FirstOrDefaultAsync(m => m.SifArtNar == id);
             if (artNar == null)
             {
-                return NotFound();
+                return;
             }
 
             _context.ArtiklNarudzbas.Remove(artNar);
             await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            Response.Redirect("/Cart/Index/-1");
+            return;
         }
         
         public async Task<IActionResult> Order()
