@@ -5,19 +5,20 @@
 }
 
 
-<h3>Jeste li sigurni da želite obrisati ovaj zapis?</h3>
+<h3>Jeste li sigurni da želite obrisati @Html.DisplayName(Model.Ime)?</h3>
 <div>
-    <h4>@Html.DisplayName(Model.Ime)</h4>
+    
     <hr />
+    <h4>Informacije:</h4>
     <dl class="row">
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Ime)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Ime)
         </dd>
     </dl>
-    
+
     <form asp-action="Delete">
         <input type="hidden" asp-for="SifZanra" />
         <input type="submit" value="Obriši" class="btn btn-danger" /> |

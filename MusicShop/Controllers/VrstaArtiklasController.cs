@@ -167,8 +167,8 @@ namespace MusicShop.Controllers
 
         private int NewId()
         {
-            var maxId = _context.Zanrs
-                      .Select(o => o.SifZanra)
+            var maxId = _context.VrstaArtiklas
+                      .Select(o => o.SifVrste)
                       .ToList()
                       .Max();
 
