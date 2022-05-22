@@ -1,0 +1,23 @@
+﻿@model MusicShopData.VrstaArtikla
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+
+<div>
+    <h4>Detalji o vrsti artikla @Html.DisplayName(Model.ImeVrste)</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayName("Ime vrste: ")
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.ImeVrste)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.SifVrste">Uredi</a> |
+    <a asp-action="Index">Povratak na popis vrsta artikala</a>
+</div>

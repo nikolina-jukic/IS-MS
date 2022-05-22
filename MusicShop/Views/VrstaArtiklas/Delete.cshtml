@@ -1,0 +1,26 @@
+﻿@model MusicShopData.VrstaArtikla
+
+@{
+    ViewData["Title"] = "Delete";
+}
+
+
+<h3>JEste li sigurni da želite obrisati ovaj zapis?</h3>
+<div>
+    <h4>@Html.DisplayName(Model.ImeVrste)</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayName("Ime vrste: ")
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.ImeVrste)
+        </dd>
+    </dl>
+    
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="SifVrste" />
+        <input type="submit" value="Obriši" class="btn btn-danger" /> |
+        <a asp-action="Index">Povratak na popis vrsta artikala</a>
+    </form>
+</div>

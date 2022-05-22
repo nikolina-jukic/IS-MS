@@ -1,0 +1,44 @@
+﻿@model IEnumerable<MusicShopData.VrstaArtikla>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Popis vrsta artikala</h1>
+
+<p>
+    <a asp-action="Create">Dodaj novu vrstu</a>
+</p>
+
+@using (Html.BeginForm())
+{
+<p>
+    Ime vrste: @Html.TextBox("searchStr") <br /><br />
+    <input type="submit" value="Traži" />
+</p>
+}
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayName("Ime")
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ImeVrste)
+                </td>
+                <td style="text-align:right">
+                    <a asp-action="Edit" asp-route-id="@item.SifVrste">Uredi</a> |
+                    <a asp-action="Details" asp-route-id="@item.SifVrste">Detalji</a> |
+                    <a asp-action="Delete" asp-route-id="@item.SifVrste">Obriši</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
