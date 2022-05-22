@@ -62,14 +62,70 @@ namespace MusicShop.Controllers
                 return;
             }
 
-            var narudzba = await _context.Narudzbas
-                .Include(n => n.UsernameNavigation)
-                .FirstOrDefaultAsync(m => m.SifNarudzbe == id);
-            if (narudzba == null)
+            var artNar = await _context.ArtiklNarudzbas
+                .Include(n => n.SifArtiklaNavigation)
+                .Include(n => n.SifNarudzbeNavigation)
+                .FirstOrDefaultAsync(m => m.SifArtNar == id);
+            if (artNar == null)
             {
                 return;
             }
             Response.Redirect("/Cart/Index/" + id.ToString());
+            return;
+        }
+
+        public async Task Increment(int? id)
+        {
+            if (id == null)
+            {
+                return;
+            }
+
+            var artNar = await _context.ArtiklNarudzbas
+                .Include(n => n.SifArtiklaNavigation)
+                .Include(n => n.SifNarudzbeNavigation)
+                .FirstOrDefaultAsync(m => m.SifArtNar == id);
+            if (artNar == null)
+            {
+                return;
+            }
+            artNar.Kolicina += 1;
+            _context.Update(artNar);
+            await _context.SaveChangesAsync();
+            List<NarudzbaViewModel> narudzbe = HttpContext.Session.Get<List<NarudzbaViewModel>>(SessionKeyCart);
+            NarudzbaViewModel narudzba = narudzbe.Where(n => n.sifNar == id).First();
+            narudzba.Kolicina += 1;
+            HttpContext.Session.Set(SessionKeyCart, narudzbe);
+            Response.Redirect(Request.Headers["Referer"].ToString());
+            return;
+        }
+
+        public async Task Decrement(int? id)
+        {
+            if (id == null)
+            {
+                return;
+            }
+
+            var artNar = await _context.ArtiklNarudzbas
+                .Include(n => n.SifArtiklaNavigation)
+                .Include(n => n.SifNarudzbeNavigation)
+                .FirstOrDefaultAsync(m => m.SifArtNar == id);
+            if (artNar == null)
+            {
+                return;
+            }
+            if (artNar.Kolicina -1 >= 0)
+            {
+                artNar.Kolicina -= 1;
+                _context.Update(artNar);
+                await _context.SaveChangesAsync();
+                List<NarudzbaViewModel> narudzbe = HttpContext.Session.Get<List<NarudzbaViewModel>>(SessionKeyCart);
+                NarudzbaViewModel narudzba = narudzbe.Where(n => n.sifNar == id).First();
+                narudzba.Kolicina -= 1;
+                HttpContext.Session.Set(SessionKeyCart, narudzbe);
+            }
+            Response.Redirect(Request.Headers["Referer"].ToString());
             return;
         }
 

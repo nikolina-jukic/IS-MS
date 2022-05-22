@@ -21,7 +21,7 @@ namespace MusicShopBLL
 
 		public int sifNar { get; private set; }
 
-		public int? Kolicina { get; private set; }
+		public int? Kolicina { get; set; }
 
 		public DateTime? Datum { get; private set; }
 

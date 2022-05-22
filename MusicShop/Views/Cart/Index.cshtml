@@ -4,10 +4,10 @@
 	ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
+<h1>Košarica</h1>
 
 @{double? ukupno = 0;}
-@{int detail = -1; }
+@{MusicShopBLL.NarudzbaViewModel detail = null; }
 
 <table class="table">
 	<thead>
@@ -32,7 +32,9 @@
 					@Html.DisplayFor(modelItem => item.Ime)
 				</td>
 				<td>
-					@Html.DisplayFor(modelItem => item.Kolicina)
+					@Html.DisplayFor(modelItem => item.Kolicina) |
+					<a asp-action="Increment" asp-route-id="@item.sifNar">+</a> |
+					<a asp-action="Decrement" asp-route-id="@item.sifNar">-</a>
 				</td>
 				<td>
 					@Html.DisplayFor(modelItem => item.Ukupno)
@@ -42,10 +44,10 @@
 					<a asp-action="Remove" asp-route-id="@item.sifNar">Ukloni</a>
 				</td>
 			</tr>
-			{ ukupno += item.Cijena; }
+			{ ukupno += item.Ukupno; }
 			@if (item.Detail)
 			{
-				{ detail = item.sifNar; }
+				{ detail = item; }
 			}
 		}
 	</tbody>
@@ -58,7 +60,7 @@
 	</p>
 }
 <br />
-@if (detail > -1)
+@if (detail != null)
 {
 	<table class="table">
 		<thead>
@@ -79,23 +81,20 @@
 			</tr>
 		</thead>
 		<tbody>
-			@foreach (var item in Model)
-			{
-				<tr>
-					<td>
-						@Html.DisplayFor(modelItem => item.Artikl.Ime)
-					</td>
-					<td>
-						@Html.DisplayFor(modelItem => item.Artikl.Godina)
-					</td>
-					<td>
-						@Html.DisplayFor(modelItem => item.Artikl.SifVrsteNavigation.ImeVrste)
-					</td>
-					<td>
-						@Html.DisplayFor(modelItem => item.Artikl.Cijena)
-					</td>
-				</tr>
-			}
+			<tr>
+				<td>
+					@Html.DisplayFor(modelItem => detail.Artikl.Ime)
+				</td>
+				<td>
+					@Html.DisplayFor(modelItem => detail.Artikl.Godina)
+				</td>
+				<td>
+					@Html.DisplayFor(modelItem => detail.Artikl.SifVrsteNavigation.ImeVrste)
+				</td>
+				<td>
+					@Html.DisplayFor(modelItem => detail.Artikl.Cijena)
+				</td>
+			</tr>
 		</tbody>
 	</table>
 }
